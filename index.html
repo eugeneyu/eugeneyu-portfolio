@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eugene Yu (于有志) | Google Cloud Chief Architect</title>
+    <meta name="description" content="Personal portfolio of Eugene Yu (于有志), Google Cloud Chief Architect. Expert in cloud-native system architecture, secure networking, and generative AI.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="lang-en">
+    <!-- Ambient Canvas Background -->
+    <canvas id="ambient-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="custom-cursor-dot"></div>
+
+    <!-- Header / Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-highlight">EY</span>.cloud
+            </a>
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">
+                    <span data-lang="en">About</span>
+                    <span data-lang="zh">关于</span>
+                </a>
+                <a href="#milestones" class="nav-link">
+                    <span data-lang="en">Milestones</span>
+                    <span data-lang="zh">里程碑</span>
+                </a>
+                <a href="#projects" class="nav-link">
+                    <span data-lang="en">Projects</span>
+                    <span data-lang="zh">项目</span>
+                </a>
+                <a href="#terminal" class="nav-link">
+                    <span data-lang="en">Terminal</span>
+                    <span data-lang="zh">终端机</span>
+                </a>
+                <a href="#contact" class="nav-link btn-contact">
+                    <span data-lang="en">Contact</span>
+                    <span data-lang="zh">联系</span>
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Language Switcher Button -->
+                <button class="lang-toggle" id="lang-toggle-btn" aria-label="Toggle language">
+                    <span class="lang-btn-text" id="lang-btn-text">中文</span>
+                    <i data-lucide="globe" class="icon-globe"></i>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i data-lucide="menu" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="#about" class="mobile-link">
+            <span data-lang="en">About</span>
+            <span data-lang="zh">关于</span>
+        </a>
+        <a href="#milestones" class="mobile-link">
+            <span data-lang="en">Milestones</span>
+            <span data-lang="zh">里程碑</span>
+        </a>
+        <a href="#projects" class="mobile-link">
+            <span data-lang="en">Projects</span>
+            <span data-lang="zh">项目</span>
+        </a>
+        <a href="#terminal" class="mobile-link">
+            <span data-lang="en">Terminal</span>
+            <span data-lang="zh">终端机</span>
+        </a>
+        <a href="#contact" class="mobile-link">
+            <span data-lang="en">Contact</span>
+            <span data-lang="zh">联系</span>
+        </a>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero-section" id="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="badge-premium">
+                        <span class="pulse-dot"></span>
+                        <span data-lang="en">Google Cloud Chief Architect</span>
+                        <span data-lang="zh">谷歌云 首席架构师</span>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Eugene Yu</span><br>
+                        <span class="chinese-name" data-lang="zh">于有志</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        <span data-lang="en">Designing hyperscale cloud infrastructures, secure multi-cloud networks, and enterprise-grade generative AI blueprints for the next-generation digital economy.</span>
+                        <span data-lang="zh">为下一代数字经济，设计超大规模云端基础设施、多云安全网络拓扑，以及企业级生成式 AI 落地蓝图。</span>
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">
+                            <span data-lang="en">Explore Labs</span>
+                            <span data-lang="zh">探索实验室</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                        <a href="#terminal" class="btn btn-secondary">
+                            <span data-lang="en">Run Terminal</span>
+                            <span data-lang="zh">启动终端</span>
+                            <i data-lucide="terminal"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="architect-sphere-container">
+                        <!-- Abstract Architectural Core -->
+                        <div class="architect-ring ring-1"></div>
+                        <div class="architect-ring ring-2"></div>
+                        <div class="architect-ring ring-3"></div>
+                        <div class="core-node">
+                            <i data-lucide="cloud" class="core-icon"></i>
+                        </div>
+                        <!-- Surrounding Data Nodes -->
+                        <div class="floating-node node-1" title="Dataflow"><i data-lucide="database"></i></div>
+                        <div class="floating-node node-2" title="AI / LLM"><i data-lucide="cpu"></i></div>
+                        <div class="floating-node node-3" title="VPN / Routing"><i data-lucide="shield-check"></i></div>
+                        <div class="floating-node node-4" title="CDN / Proxy"><i data-lucide="server"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span class="mouse-wheel"></span>
+                <span class="scroll-text" data-lang="en">Scroll to Explore</span>
+                <span class="scroll-text" data-lang="zh">向下滚动探索</span>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section class="about-section section-padding" id="about">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag" data-lang="en">01 / BACKGROUND</span>
+                    <span class="section-tag" data-lang="zh">01 / 个人背景</span>
+                    <h2 class="section-title">
+                        <span data-lang="en">Architecting the Invisible</span>
+                        <span data-lang="zh">于无形中 筑造未来</span>
+                    </h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-text-card">
+                        <p class="paragraph-lead">
+                            <span data-lang="en">As Google Cloud Chief Architect, Eugene Yu translates complex business ambitions into bulletproof cloud structures. He acts as the bridge connecting hyper-scale data processing networks with the forefront of enterprise Generative AI systems.</span>
+                            <span data-lang="zh">作为谷歌云首席架构师，于有志专注于将复杂的商业愿景转化为坚不可摧的云端架构。他是超大规模数据处理网络与前沿企业级生成式 AI 系统的核心桥梁。</span>
+                        </p>
+                        <p class="paragraph-secondary">
+                            <span data-lang="en">With deep technical mastery in hybrid networking, automated serverless workflows, and high-performance computing pipelines, Eugene possesses a unique combination of ground-level software engineering craft and high-altitude strategic design.</span>
+                            <span data-lang="zh">他在混合云网络拓扑、自动化无服务器工作流以及高性能计算管道方面拥有深厚的技术造诣。无论是底层的软件工程匠心，还是高屋建瓴的全局战略设计，他都游刃有余。</span>
+                        </p>
+                        <!-- Tech Stack Tags -->
+                        <div class="tech-pill-container">
+                            <span class="tech-pill">Google Cloud Platform</span>
+                            <span class="tech-pill">System Architecture</span>
+                            <span class="tech-pill">Hybrid Networking (VPN)</span>
+                            <span class="tech-pill">Generative AI</span>
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">Dataflow</span>
+                            <span class="tech-pill">Serverless Orchestration</span>
+                        </div>
+                    </div>
+                    <div class="about-stats-grid">
+                        <div class="stat-card">
+                            <h3 class="stat-number">GCP</h3>
+                            <p class="stat-label">
+                                <span data-lang="en">Chief Architect Expertise</span>
+                                <span data-lang="zh">首席架构专家</span>
+                            </p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-number">11</h3>
+                            <p class="stat-label">
+                                <span data-lang="en">Open Source Repositories</span>
+                                <span data-lang="zh">开源代码仓库</span>
+                            </p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-number">100%</h3>
+                            <p class="stat-label">
+                                <span data-lang="en">Enterprise Delivery Rate</span>
+                                <span data-lang="zh">企业级高标准交付</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MILESTONES SECTION -->
+        <section class="milestones-section section-padding" id="milestones">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag" data-lang="en">02 / EXPERIENCES & MILESTONES</span>
+                    <span class="section-tag" data-lang="zh">02 / 关键履历与活动</span>
+                    <h2 class="section-title">
+                        <span data-lang="en">Industry Influence & Milestones</span>
+                        <span data-lang="zh">行业影响力与技术足迹</span>
+                    </h2>
+                </div>
+                <div class="timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item reveal-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2024</span>
+                            <h3 class="timeline-item-title">
+                                <span data-lang="en">Roundtable Panelist @ XDC 2024 (稀土开发者大会)</span>
+                                <span data-lang="zh">2024 稀土开发者大会·主论坛圆桌嘉宾</span>
+                            </h3>
+                            <p class="timeline-item-desc">
+                                <span data-lang="en">Invited as Google Cloud Chief Architect to discuss "Innovation and Entrepreneurship Opportunities in the Era of Large Models." Shared core insights on GenAI landing, enterprise cost architectures, and Google's Responsible AI principles (Beneficial, Fair, Secure, and Respectful of Privacy).</span>
+                                <span data-lang="zh">受邀作为谷歌云首席架构师参与大会圆桌论坛，探讨《大模型时代的创新与创业机遇》。就生成式 AI 技术落地、企业算力成本优化、以及谷歌负责任的 AI 原则（社会有益、公平、安全及隐私保护）发表了深度洞察。</span>
+                            </p>
+                            <a href="https://juejin.cn/post/7388177432322310183" target="_blank" class="timeline-link">
+                                <span data-lang="en">Read Coverage</span>
+                                <span data-lang="zh">阅读大会报道</span>
+                                <i data-lucide="external-link"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item reveal-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">Technical Deep Dive</span>
+                            <h3 class="timeline-item-title">
+                                <span data-lang="en">Published: Automated Transcoder API Workflows</span>
+                                <span data-lang="zh">发表：《Transcoder API 自动化视频转码工作流》</span>
+                            </h3>
+                            <p class="timeline-item-desc">
+                                <span data-lang="en">Published a highly-acclaimed architectural guide on InfoQ showing developers how to orchestrate automated serverless media processing pipelines using GCP Transcoder API, Cloud Functions, and Pub/Sub message queues.</span>
+                                <span data-lang="zh">在 InfoQ 社区发表深度技术实践，分享如何利用谷歌云 Transcoder API、Cloud Functions 以及 Pub/Sub 消息队列，完美编排高弹性、自动化、无服务器的音视频媒资处理流水线。</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item reveal-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">Network Security Blueprint</span>
+                            <h3 class="timeline-item-title">
+                                <span data-lang="en">Published: Cross-Cloud Secure API VPN Bridge</span>
+                                <span data-lang="zh">发表：《公有云环境中使用 VPN 访问谷歌云 API》</span>
+                            </h3>
+                            <p class="timeline-item-desc">
+                                <span data-lang="en">Authored a blueprint on secure enterprise connectivity, instructing teams how to safely link physical server environments and multi-cloud virtual machines (e.g., Alibaba Cloud ECS) to GCP Private API endpoints over encrypted IPSec VPN utilizing Private Google Access.</span>
+                                <span data-lang="zh">发表跨公有云网络架构指南，指导企业如何打通阿里云 ECS 虚拟机与谷歌云私网 API。通过精妙的 IPSec VPN 专网连接配合 Private Google Access，实现安全、高吞吐、零外网暴露的跨云 API 数据通道。</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section class="projects-section section-padding" id="projects">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag" data-lang="en">03 / OPEN SOURCE LABORATORIES</span>
+                    <span class="section-tag" data-lang="zh">03 / 开源实验室</span>
+                    <h2 class="section-title">
+                        <span data-lang="en">Open Source Engineering</span>
+                        <span data-lang="zh">软件工程与开源世界</span>
+                    </h2>
+                </div>
+                <div class="projects-grid">
+                    <!-- Project Card 1 -->
+                    <div class="project-card tilt-card">
+                        <div class="project-card-header">
+                            <i data-lucide="zap" class="project-icon"></i>
+                            <div class="project-stars"><i data-lucide="star"></i> 5</div>
+                        </div>
+                        <h3 class="project-title">cdn_prefetch</h3>
+                        <p class="project-desc">
+                            <span data-lang="en">A high-speed, lightweight Python utility designed to coordinate prefetching schedules and refresh CDN caches for low-latency delivery.</span>
+                            <span data-lang="zh">一个基于 Python 编写的高吞吐、轻量级实用程序，专门用于自动化调度 CDN 缓存预热与主动刷新，实现极致的内容低时延分发。</span>
+                        </p>
+                        <div class="project-footer">
+                            <span class="project-lang">Python</span>
+                            <a href="https://github.com/eugeneyu/cdn_prefetch" target="_blank" class="project-link" aria-label="View on GitHub">
+                                <i data-lucide="github"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div class="project-card tilt-card">
+                        <div class="project-card-header">
+                            <i data-lucide="repeat" class="project-icon"></i>
+                            <div class="project-stars"><i data-lucide="star"></i> 5</div>
+                        </div>
+                        <h3 class="project-title">custom-reverse-proxy</h3>
+                        <p class="project-desc">
+                            <span data-lang="en">Robust shell-based reverse proxy script configurations featuring security hardening, flexible routing, and automated upstream load monitoring.</span>
+                            <span data-lang="zh">一套稳健的、基于 Shell 编写的反向代理脚本配置。支持自动化路由分发、安全加固以及上游后端服务器健康状态的弹性检测。</span>
+                        </p>
+                        <div class="project-footer">
+                            <span class="project-lang">Shell</span>
+                            <a href="https://github.com/eugeneyu/custom-reverse-proxy" target="_blank" class="project-link" aria-label="View on GitHub">
+                                <i data-lucide="github"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div class="project-card tilt-card">
+                        <div class="project-card-header">
+                            <i data-lucide="file-code" class="project-icon"></i>
+                            <div class="project-stars"><i data-lucide="star"></i> 1</div>
+                        </div>
+                        <h3 class="project-title">cloud-demos</h3>
+                        <p class="project-desc">
+                            <span data-lang="en">A cohesive suite of Jupyter notebooks containing architecture walk-throughs, configuration scripts, and live cloud deployment prototypes.</span>
+                            <span data-lang="zh">一系列系统化的 Jupyter Notebook 技术笔记。包含云原生架构演练、云资源快速初始化配置脚本，以及完整的端到端部署流程验证。</span>
+                        </p>
+                        <div class="project-footer">
+                            <span class="project-lang">Jupyter Notebook</span>
+                            <a href="https://github.com/eugeneyu/cloud-demos" target="_blank" class="project-link" aria-label="View on GitHub">
+                                <i data-lucide="github"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 4 -->
+                    <div class="project-card tilt-card">
+                        <div class="project-card-header">
+                            <i data-lucide="search" class="project-icon"></i>
+                            <div class="project-stars"><i data-lucide="star"></i> 1</div>
+                        </div>
+                        <h3 class="project-title">lianjia-beike-spider</h3>
+                        <p class="project-desc">
+                            <span data-lang="en">A reliable Python crawler designed to capture real estate datasets across 21 major Chinese cities, featuring multi-thread performance and CSV/MySQL outputs.</span>
+                            <span data-lang="zh">一个稳定高并发的 Python 房地产数据爬虫，可采集全国 21 个主要城市的二手房、小区、新房和租房行情，支持写入 CSV、MySQL 或 Excel 导出。</span>
+                        </p>
+                        <div class="project-footer">
+                            <span class="project-lang">Python</span>
+                            <a href="https://github.com/eugeneyu/lianjia-beike-spider" target="_blank" class="project-link" aria-label="View on GitHub">
+                                <i data-lucide="github"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 5 -->
+                    <div class="project-card tilt-card">
+                        <div class="project-card-header">
+                            <i data-lucide="git-branch" class="project-icon"></i>
+                            <div class="project-stars"><i data-lucide="star"></i> 1</div>
+                        </div>
+                        <h3 class="project-title">DataflowDemos</h3>
+                        <p class="project-desc">
+                            <span data-lang="en">Custom implementations and adaptations of Google Cloud Dataflow template pipelines, engineered to process structured data streams in real-time.</span>
+                            <span data-lang="zh">深度定制的 Google Cloud Dataflow 批流一体管道。针对高吞吐日志分析与大规模实时结构化数据流聚合场景进行优化重构。</span>
+                        </p>
+                        <div class="project-footer">
+                            <span class="project-lang">Java</span>
+                            <a href="https://github.com/eugeneyu/DataflowDemos" target="_blank" class="project-link" aria-label="View on GitHub">
+                                <i data-lucide="github"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 6 -->
+                    <div class="project-card tilt-card">
+                        <div class="project-card-header">
+                            <i data-lucide="home" class="project-icon"></i>
+                            <div class="project-stars"><i data-lucide="star"></i> 0</div>
+                        </div>
+                        <h3 class="project-title">home-environment</h3>
+                        <p class="project-desc">
+                            <span data-lang="en">PHP dashboard script connecting ambient sensors and home automation nodes to monitor hardware environments with real-time feedback loops.</span>
+                            <span data-lang="zh">基于 PHP 开发的家庭传感器与环境监测仪看板，可对接主流 IoT 物联网数据采集节点，实现室内温湿度及空气状况的可视化展示。</span>
+                        </p>
+                        <div class="project-footer">
+                            <span class="project-lang">PHP</span>
+                            <a href="https://github.com/eugeneyu/home-environment" target="_blank" class="project-link" aria-label="View on GitHub">
+                                <i data-lucide="github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE TERMINAL SECTION -->
+        <section class="terminal-section section-padding" id="terminal">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag" data-lang="en">04 / ARCHITECT SHELL CONSOLE</span>
+                    <span class="section-tag" data-lang="zh">04 / 架构师交互式终端</span>
+                    <h2 class="section-title">
+                        <span data-lang="en">Interact in Real-Time</span>
+                        <span data-lang="zh">云端虚拟交互控制台</span>
+                    </h2>
+                </div>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="term-btn term-btn-red"></span>
+                            <span class="term-btn term-btn-yellow"></span>
+                            <span class="term-btn term-btn-green"></span>
+                        </div>
+                        <div class="terminal-title">eugeneyu@gcp-cloud-shell:~</div>
+                        <div class="terminal-badge">BASH v5.2</div>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <!-- Initial Boot Messages -->
+                        <div class="term-line system-text">Connecting to secure cluster... success.</div>
+                        <div class="term-line system-text">Authorized profile: Eugene Yu (于有志)</div>
+                        <div class="term-line text-dim">Type <span class="term-highlight">help</span> (or <span class="term-highlight">帮助</span>) to list available architect commands.</div>
+                        <div class="term-line text-dim">&nbsp;</div>
+                        <!-- Input Line (Moved by JS) -->
+                        <div class="term-input-line" id="term-input-line">
+                            <span class="term-prompt">eugeneyu@cloud:~$</span>
+                            <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false" aria-label="Terminal Input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact-section section-padding" id="contact">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag" data-lang="en">05 / ESTABLISH CONNECTIVITY</span>
+                    <span class="section-tag" data-lang="zh">05 / 建立安全连接</span>
+                    <h2 class="section-title">
+                        <span data-lang="en">Let's Design Your Infrastructure</span>
+                        <span data-lang="zh">携手设计 您的技术基础设施</span>
+                    </h2>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3 class="contact-lead-title">
+                            <span data-lang="en">Ready to scale or optimize?</span>
+                            <span data-lang="zh">准备好进行架构扩容或优化了吗？</span>
+                        </h3>
+                        <p class="contact-desc">
+                            <span data-lang="en">Whether you're planning a massive multi-region cloud deployment, trying to set up secure hybrid VPN pathways, or wanting to consult on generative AI infrastructure blueprints—drop a line.</span>
+                            <span data-lang="zh">无论您是规划跨区域的多云架构、部署高等级企业级 VPN 网络、还是探索生成式 AI 的算力池落地，欢迎随时发送消息，我们共同探讨。</span>
+                        </p>
+                        <!-- Social Cards -->
+                        <div class="social-channels">
+                            <a href="https://github.com/eugeneyu" target="_blank" class="social-card">
+                                <div class="social-icon-wrapper"><i data-lucide="github"></i></div>
+                                <div class="social-meta">
+                                    <span class="social-label">GitHub</span>
+                                    <span class="social-id">@eugeneyu</span>
+                                </div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/youzhi-eugene-yu/" target="_blank" class="social-card">
+                                <div class="social-icon-wrapper"><i data-lucide="linkedin"></i></div>
+                                <div class="social-meta">
+                                    <span class="social-label">LinkedIn</span>
+                                    <span class="social-id">youzhi-eugene-yu</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-form-container">
+                        <form id="contact-form" class="gcp-styled-form" onsubmit="event.preventDefault(); alert('Message queued successfully (Demo form)!'); this.reset();">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="text" id="form-name" required placeholder=" ">
+                                    <label for="form-name">
+                                        <span data-lang="en">Name</span>
+                                        <span data-lang="zh">您的姓名</span>
+                                    </label>
+                                </div>
+                                <div class="input-group">
+                                    <input type="email" id="form-email" required placeholder=" ">
+                                    <label for="form-email">
+                                        <span data-lang="en">Email</span>
+                                        <span data-lang="zh">您的邮箱</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="form-subject" required placeholder=" ">
+                                <label for="form-subject">
+                                    <span data-lang="en">Subject</span>
+                                    <span data-lang="zh">咨询主题</span>
+                                </label>
+                            </div>
+                            <div class="input-group">
+                                <textarea id="form-message" required rows="5" placeholder=" "></textarea>
+                                <label for="form-message">
+                                    <span data-lang="en">Message Details</span>
+                                    <span data-lang="zh">消息详情</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                <span data-lang="en">Initiate Request</span>
+                                <span data-lang="zh">建立信道并发送</span>
+                                <i data-lucide="send"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-copyright">
+                &copy; 2026 Eugene Yu (于有志). Designed for Google Cloud and open-source intelligence. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/eugeneyu" target="_blank"><i data-lucide="github"></i></a>
+                <a href="https://www.linkedin.com/in/youzhi-eugene-yu/" target="_blank"><i data-lucide="linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
