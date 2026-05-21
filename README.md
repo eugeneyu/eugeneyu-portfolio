@@ -53,30 +53,53 @@ Then open [http://localhost:8080](http://localhost:8080).
 
 ## ☁️ GCP Production Deployment Architecture (`ey.cloud`)
 
-To deploy this portfolio securely at a global scale under the custom domain **`ey.cloud`**, we implement a secure, enterprise-grade Google Cloud Platform topology.
+To deploy this portfolio securely at a global scale under the custom domain **`ey.cloud`**, we implement a highly optimized serverless Google Cloud Platform topology. Direct egress is performed straight to the public internet, avoiding NAT overhead, while all ingress is protected behind a Global HTTP(S) Load Balancer mapping back to your Cloud DNS records.
 
 ```mermaid
 graph TD
-    User([Internet Users]) -->|HTTPs requests| GCLB[Global HTTPs Load Balancer]
+    User([Internet Users]) -->|HTTPS requests| GCLB[Global HTTPs Load Balancer]
     GCLB -->|Google-managed SSL for ey.cloud| DNS[Cloud DNS]
     GCLB -->|Serverless NEG Routing| CloudRun[GCP Cloud Run - Serverless Container]
-    
-    subgraph Secure Private VPC Network
-        CloudRun -->|All Egress| ServerlessConnector[Serverless VPC Access Connector]
-        ServerlessConnector -->|Private Route| PrivateSubnet[VPC Private Subnet]
-        PrivateSubnet -->|Internet Bound Egress| CloudNAT[Cloud NAT Gateway]
-        CloudNAT -->|Fixed Static Egress IPs| ExternalAPIs([External APIs / Secure Databases])
-    end
+    CloudRun -->|Direct Egress| PublicInternet([Public Internet])
 ```
 
-Here is the step-by-step deployment guide:
+We provide two deployment options: **Automated (recommended)** and **Manual CLI**.
 
-### Step 1: Set Up Artifact Registry & Push Container Image
+---
+
+### Option A: Automated One-Click Deployment (Recommended)
+
+We have provided a fully automated, idempotent deployment bash script (`deploy.sh`) that takes your domain name as a parameter, provisions all necessary GCP services, compiles and pushes your docker image, and automatically wires your custom DNS record in Cloud DNS.
+
+#### How to Run:
+Make the script executable and launch it with your domain name (optionally specify a region, defaulting to `asia-east1`):
+
+```bash
+chmod +x deploy.sh
+./deploy.sh ey.cloud asia-east1
+```
+
+#### What the Script Automates:
+1.  **Enables GCP APIs:** Artifact Registry, Cloud Run, Compute Engine (for GCLB), and Cloud DNS.
+2.  **Sets up Artifact Registry:** Creates the repository `portfolio-repo` if it does not exist.
+3.  **Builds & Pushes Image:** Automatically compiles your local files into Nginx Alpine and pushes them.
+4.  **Deploys to Cloud Run:** Limits ingress to `internal-and-cloud-load-balancing` for secure origin delivery.
+5.  **Provisions Global Network:** Reserves a static global IP, configures a Serverless NEG, registers a global HTTPS backend service, and hooks a URL Map.
+6.  **Deploys Managed SSL Certificate:** Provisions a Google-managed certificate for your domain (`ey.cloud`).
+7.  **Auto-Updates DNS Records:** Automatically searches for an active Cloud DNS Managed Zone associated with your domain and transactionally creates/updates your **A-record** pointing directly to your Load Balancer's IP!
+
+---
+
+### Option B: Manual CLI Steps
+
+If you prefer step-by-step control, you can execute the commands manually.
+
+#### Step 1: Set Up Artifact Registry & Push Container Image
 1.  Enable Artifact Registry API:
     ```bash
     gcloud services enable artifactregistry.googleapis.com
     ```
-2.  Create a Docker repository in your region (e.g., `asia-east1`):
+2.  Create a Docker repository in your region:
     ```bash
     gcloud artifacts repositories create portfolio-repo \
         --repository-format=docker \
@@ -93,69 +116,19 @@ Here is the step-by-step deployment guide:
     docker push asia-east1-docker.pkg.dev/[PROJECT_ID]/portfolio-repo/site:v1
     ```
 
----
+#### Step 2: Deploy Container on Cloud Run
+We configure Cloud Run to **only** allow traffic flowing from our Global Load Balancer, blocking direct open-internet routes.
 
-### Step 2: Deploy Container on Cloud Run
-To maximize security, we configure Cloud Run to **only** allow traffic flowing from our Global Load Balancer, blocking direct open-internet routes.
+```bash
+gcloud run deploy portfolio-service \
+    --image=asia-east1-docker.pkg.dev/[PROJECT_ID]/portfolio-repo/site:v1 \
+    --region=asia-east1 \
+    --port=8080 \
+    --ingress=internal-and-cloud-load-balancing \
+    --allow-unauthenticated
+```
 
-1.  Deploy the service:
-    ```bash
-    gcloud run deploy portfolio-service \
-        --image=asia-east1-docker.pkg.dev/[PROJECT_ID]/portfolio-repo/site:v1 \
-        --region=asia-east1 \
-        --port=8080 \
-        --ingress=internal-and-cloud-load-balancing \
-        --allow-unauthenticated
-    ```
-
----
-
-### Step 3: Configure Cloud NAT for Outbound Traffic (Optional)
-If your website container ever needs to access protected third-party resources (like secure databases or private APIs) that restrict incoming traffic to static Whitelisted IPs, you must route Cloud Run's egress through a Cloud NAT.
-
-1.  **Create a VPC and Subnet:**
-    ```bash
-    gcloud compute networks create portfolio-vpc --subnet-mode=custom
-    gcloud compute networks subnets create portfolio-subnet \
-        --network=portfolio-vpc \
-        --range=10.0.1.0/24 \
-        --region=asia-east1
-    ```
-2.  **Create a Cloud Router & Cloud NAT:**
-    ```bash
-    gcloud compute routers create portfolio-router \
-        --network=portfolio-vpc \
-        --region=asia-east1
-
-    gcloud compute addresses create nat-ip --region=asia-east1 --global=false
-
-    gcloud compute routers nats create portfolio-nat \
-        --router=portfolio-router \
-        --region=asia-east1 \
-        --nat-custom-ips=nat-ip \
-        --nat-all-subnet-ip-ranges
-    ```
-3.  **Create a Serverless VPC Access Connector:**
-    ```bash
-    gcloud compute networks vpc-access connectors create portfolio-connector \
-        --region=asia-east1 \
-        --subnet=portfolio-subnet \
-        --min-instances=2 \
-        --max-instances=10
-    ```
-4.  **Update Cloud Run to Route Egress through Connector:**
-    ```bash
-    gcloud run services update portfolio-service \
-        --region=asia-east1 \
-        --vpc-connector=portfolio-connector \
-        --vpc-egress=all-traffic
-    ```
-
----
-
-### Step 4: Configure Global HTTP(S) Load Balancer & Serverless NEG
-Setting up a Global Load Balancer provides low-latency edge serving, DDoS protection (Cloud Armor compatibility), and clean custom SSL mappings.
-
+#### Step 3: Configure Global HTTP(S) Load Balancer & Serverless NEG
 1.  **Create a Serverless Network Endpoint Group (NEG):**
     ```bash
     gcloud compute network-endpoint-groups create portfolio-neg \
@@ -180,9 +153,7 @@ Setting up a Global Load Balancer provides low-latency edge serving, DDoS protec
         --default-service=portfolio-backend
     ```
 
----
-
-### Step 5: Setup Cloud DNS & Custom Domain (`ey.cloud`) with SSL
+#### Step 4: Setup Cloud DNS & Custom Domain with SSL
 1.  **Reserve a Static External IP Address:**
     ```bash
     gcloud compute addresses create portfolio-lb-ip --global
@@ -208,7 +179,12 @@ Setting up a Global Load Balancer provides low-latency edge serving, DDoS protec
         --ports=443 \
         --address=portfolio-lb-ip
     ```
-5.  **Configure DNS Records in Cloud DNS:**
-    - Create a Public DNS Zone for `ey.cloud` (if not already created).
-    - Create an **`A` record** in Cloud DNS for `ey.cloud` mapping to your static IP address `[LB_IP]`.
-    - Once DNS propagates, Google will automatically verify ownership and provision your global SSL certificates!
+5.  **Configure DNS A-Record in Cloud DNS:**
+    Identify your public managed DNS zone on GCP, and create/update an `A-Record` pointing directly to your `[LB_IP]`:
+    ```bash
+    gcloud dns record-sets create "ey.cloud." \
+        --zone="[YOUR_MANAGED_ZONE_NAME]" \
+        --type="A" \
+        --ttl=300 \
+        --rrdatas="[LB_IP]"
+    ```
