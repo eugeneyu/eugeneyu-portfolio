@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const langToggleBtn = document.getElementById('lang-toggle-btn');
     const langBtnText = document.getElementById('lang-btn-text');
 
-    // Retrieve saved language or default to 'en'
-    let currentLang = localStorage.getItem('eugene-portfolio-lang') || 'en';
+    // Retrieve saved language or default to 'zh'
+    let currentLang = localStorage.getItem('eugene-portfolio-lang') || 'zh';
     setLanguage(currentLang);
 
     langToggleBtn.addEventListener('click', () => {
